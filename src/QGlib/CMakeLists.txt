@@ -49,8 +49,8 @@ automoc4_add_library(QtGLib ${SHARED_OR_STATIC} ${QtGLib_SRCS})
 set_target_properties(QtGLib PROPERTIES OUTPUT_NAME QtGLib-${QTGLIB_API_VERSION}
                                           SOVERSION ${QTGLIB_SOVERSION}
                                             VERSION ${QTGSTREAMER_VERSION})
-target_link_libraries(QtGLib ${QT_QTCORE_LIBRARY} ${GOBJECT_LIBRARIES})
-target_link_libraries(QtGLib LINK_INTERFACE_LIBRARIES ${QT_QTCORE_LIBRARY})
+target_link_libraries(QtGLib PRIVATE ${QT_QTCORE_LIBRARY} ${GOBJECT_LIBRARIES})
+target_link_libraries(QtGLib PUBLIC ${QT_QTCORE_LIBRARY})
 
 # Install
 install(TARGETS QtGLib DESTINATION ${LIB_INSTALL_DIR} EXPORT ${EXPORT_TARGET_SET})

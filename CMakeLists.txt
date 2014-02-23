@@ -1,6 +1,8 @@
 project(QtGStreamer)
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8.12)
 enable_testing()
+
+cmake_policy(SET CMP0023 NEW)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 set(QTGSTREAMER_VERSION 1.0.0.1)
