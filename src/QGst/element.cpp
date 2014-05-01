@@ -103,18 +103,31 @@ void Element::releaseRequestPad(const PadPtr & pad)
 QList<PadPtr> Element::pads(bool src, bool sink) const
 {
     QList<PadPtr> ret;
+    GValue tmp = G_VALUE_INIT;
     GstPad *pad;
     GstIterator *iter;
 
     if (src) {
         iter = gst_element_iterate_src_pads(object<GstElement>());
-        while (gst_iterator_next(iter, (gpointer*)&pad) == GST_ITERATOR_OK)
+        while (gst_iterator_next(iter, &tmp) == GST_ITERATOR_OK)
+        {
+            pad = (GstPad*)g_value_get_object(&tmp);
             ret.append(PadPtr::wrap(pad, false));
+            g_value_reset(&tmp);
+        }
+        g_value_unset(&tmp);
+        gst_iterator_free(iter);
     }
     if (sink) {
         iter = gst_element_iterate_sink_pads(object<GstElement>());
-        while (gst_iterator_next(iter, (gpointer*)&pad) == GST_ITERATOR_OK)
+        while (gst_iterator_next(iter, &tmp) == GST_ITERATOR_OK)
+        {
+            pad = (GstPad*)g_value_get_object(&tmp);
             ret.append(PadPtr::wrap(pad, false));
+            g_value_reset(&tmp);
+        }
+        g_value_unset(&tmp);
+        gst_iterator_free(iter);
     }
 
     return ret;
