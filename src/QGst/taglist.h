@@ -22,6 +22,7 @@
 #include "../QGlib/type.h"
 #include "../QGlib/value.h"
 #include <QtCore/QString>
+#include <QtCore/QList>
 
 class QDate;
 class QDateTime;
@@ -78,6 +79,10 @@ public:
     TagList & operator=(const TagList & other);
 
     bool isEmpty() const;
+
+    int size() const;
+
+    QList<QString> names() const;
 
     void insert(const TagList & other, TagMergeMode mode = TagMergeAppend);
     static TagList merge(const TagList & firstList, const TagList & secondList,

@@ -128,6 +128,21 @@ bool TagList::isEmpty() const
     return gst_tag_list_is_empty(d->taglist);
 }
 
+int TagList::size() const
+{
+    return gst_tag_list_n_tags(d->taglist);
+}
+
+QList<QString> TagList::names() const
+{
+    QList<QString> namesList;
+    for (int i = 0; i < gst_tag_list_n_tags(d->taglist); i++)
+    {
+        namesList.append(QString(gst_tag_list_nth_tag_name(d->taglist, i)));
+    }
+    return namesList;
+}
+
 void TagList::insert(const TagList & other, TagMergeMode mode)
 {
     gst_tag_list_insert(d->taglist, other.d->taglist, static_cast<GstTagMergeMode>(mode));
