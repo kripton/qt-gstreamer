@@ -516,4 +516,38 @@ namespace QGst {
 }
 Q_DECLARE_OPERATORS_FOR_FLAGS(QGst::MemoryFlags)
 QGST_REGISTER_TYPE(QGst::MemoryFlags)
+
+namespace QGst {
+    enum PadProbeType {
+        PadProbeTypeInvalid          = 0,
+        /* flags to control Blocking */
+        PadProbeTypeIdle             = (1 << 0),
+        PadProbeTypeBlock            = (1 << 1),
+        /* flags to select datatypes */
+        PadProbeTypeBuffer           = (1 << 4),
+        PadProbeTypeBufferList      = (1 << 5),
+        PadProbeTypeEventDownstream = (1 << 6),
+        PadProbeTypeEventUpstream   = (1 << 7),
+        PadProbeTypeEventFlush      = (1 << 8),
+        PadProbeTypeQueryDownstream = (1 << 9),
+        PadProbeTypeQueryUpstream   = (1 << 10),
+        /* flags to select Scheduling mode */
+        PadProbeTypepush             = (1 << 12),
+        PadProbeTypePull             = (1 << 13),
+
+        /* flag combinations */
+        PadProbeTypeBlocking         = PadProbeTypeIdle | PadProbeTypeBlock,
+        PadProbeTypeDataDownstream  = PadProbeTypeBuffer | PadProbeTypeBufferList | PadProbeTypeEventDownstream,
+        PadProbeTypeDataUpstream    = PadProbeTypeEventUpstream,
+        PadProbeTypeDataBoth        = PadProbeTypeDataDownstream | PadProbeTypeDataUpstream,
+        PadProbeTypeBlockDownstream = PadProbeTypeBlock | PadProbeTypeDataDownstream,
+        PadProbeTypeBlockUpstream   = PadProbeTypeBlock | PadProbeTypeDataUpstream,
+        PadProbeTypeEventBoth       = PadProbeTypeEventDownstream | PadProbeTypeEventUpstream,
+        PadProbeTypeQueryBoth       = PadProbeTypeQueryDownstream | PadProbeTypeQueryUpstream,
+        PadProbeTypeAllBoth         = PadProbeTypeDataBoth | PadProbeTypeQueryBoth,
+        PadProbeTypeScheduling       = PadProbeTypepush | PadProbeTypePull
+    };
+}
+QGST_REGISTER_TYPE(QGst::PadProbeType)
+
 #endif

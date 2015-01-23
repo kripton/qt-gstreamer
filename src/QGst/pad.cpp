@@ -114,4 +114,9 @@ bool Pad::sendEvent(const EventPtr &event)
     return gst_pad_send_event(object<GstPad>(), event);
 }
 
+unsigned long Pad::addProbe(PadProbeType probeType, const void *callback, void *userData, void *destroyData)
+{
+    return gst_pad_add_probe(object<GstPad>(), static_cast<GstPadProbeType>(probeType), ((GstPadProbeCallback)callback), userData, (GDestroyNotify)destroyData);
+}
+
 }

@@ -56,6 +56,8 @@ public:
 
     bool query(const QueryPtr & query);
     bool sendEvent(const EventPtr & event);
+
+    unsigned long addProbe(QGst::PadProbeType probeType, const void *callback, void *userData, void *destroyData);
 };
 
 }
